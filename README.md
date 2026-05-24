@@ -15,7 +15,7 @@ Automate the ingestion of wine data in CSV format and execute a series of comple
 ---
 
 ## 📊 Pipeline Architecture
-
+![Pipeline Architecture](pipeline.png)
 ### Processing Flow
 
 ```
