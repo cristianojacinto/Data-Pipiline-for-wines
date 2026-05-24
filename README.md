@@ -1,144 +1,144 @@
-# 🍷 Data Pipeline para Análise de Vinhos
+# 🍷 Data Pipeline for Wine Analysis
 
-## Visão Geral
+## Overview
 
-Este projeto demonstra a implementação de um **pipeline de dados robusto e escalável** para ingestão, transformação e orquestração de dados de vinhos utilizando **Apache Hop**, uma plataforma open-source de engenharia de dados, integração e orquestração mantida pela Apache Software Foundation.
+This project demonstrates the implementation of a **robust and scalable data pipeline** for ingestion, transformation, and orchestration of wine data using **Apache Hop**, an open-source data engineering, integration, and orchestration platform maintained by the Apache Software Foundation.
 
-O pipeline processa dados de vinhos de diferentes países, aplicando transformações sofisticadas e gerando relatórios agregados e ordenados para análise especializada.
-
----
-
-## 🎯 Objetivo do Projeto
-
-Automatizar a ingestão de dados de vinhos em formato CSV e executar uma série de transformações complexas que segmentam os dados por país, aplicam filtros específicos e geram arquivos processados prontos para análise.
+The pipeline processes wine data from different countries, applying sophisticated transformations and generating aggregated and ordered reports for specialized analysis.
 
 ---
 
-## 📊 Arquitetura do Pipeline
+## 🎯 Project Objective
 
-### Fluxo de Processamento
+Automate the ingestion of wine data in CSV format and execute a series of complex transformations that segment data by country, apply specific filters, and generate processed files ready for analysis.
+
+---
+
+## 📊 Pipeline Architecture
+
+### Processing Flow
 
 ```
-Input CSV → Transformação de Dados → Filtragem → Orquestração Segmentada
+Input CSV → Data Transformation → Filtering → Segmented Orchestration
 ```
 
-O pipeline está dividido em duas sub-pipelines principais que processam dados de **Itália (IT)** e **França (FR)** de formas distintas:
+The pipeline is divided into two main sub-pipelines that process data from **Italy (IT)** and **France (FR)** in distinct ways:
 
-### **1️⃣ Etapa de Ingestão**
-- **Input CSV**: Importação de dados de vinhos em formato CSV
+### **1️⃣ Ingestion Stage**
+- **Input CSV**: Importation of wine data in CSV format
 
-### **2️⃣ Etapa de Transformação e Tratamento**
-- **Tratamento de Dados**: Normalização de códigos de países
+### **2️⃣ Transformation and Processing Stage**
+- **Data Treatment**: Normalization of country codes
   - `France` → `FR`
   - `Italy` → `IT`
 
-### **3️⃣ Etapa de Filtragem**
-- **Filter Rows**: Remove registros que não atendem aos critérios de país (IT ou FR)
-- Dados inválidos são descartados automaticamente
+### **3️⃣ Filtering Stage**
+- **Filter Rows**: Removes records that do not meet country criteria (IT or FR)
+- Invalid data is automatically discarded
 
-### **4️⃣ Etapa de Orquestração (Segmentada)**
+### **4️⃣ Orchestration Stage (Segmented)**
 
-#### **Fluxo para Itália (IT)** ✅
-- Os dados italianos são exportados diretamente em arquivo `.txt` formatado
-- Saída: `arquivo_saida_vinhos_IT.txt`
+#### **Flow for Italy (IT)** ✅
+- Italian data is exported directly to a formatted `.txt` file
+- Output: `wine_data_output_IT.txt`
 
-#### **Fluxo para França (FR)** 🇫🇷
-1. **Seleção de Campos**: Extração dos campos relevantes
-   - `country` (País)
-   - `province` (Província)
-   - `price` (Preço)
-   - `points` (Pontos)
+#### **Flow for France (FR)** 🇫🇷
+1. **Field Selection**: Extraction of relevant fields
+   - `country` (Country)
+   - `province` (Province)
+   - `price` (Price)
+   - `points` (Points)
 
-2. **Primeira Ordenação**: Ordenação inicial por preço e pontos (ordem ascendente)
+2. **First Sorting**: Initial sorting by price and points (ascending order)
 
-3. **Agregação por Localidade**: Agrupamento por país e província com cálculos:
-   - Soma de preços
-   - Soma de pontos
+3. **Aggregation by Location**: Grouping by country and province with calculations:
+   - Sum of prices
+   - Sum of points
 
-4. **Segunda Ordenação**: Reordenação final dos dados agregados por preço e pontos
+4. **Second Sorting**: Final reordering of aggregated data by price and points
 
-5. **Exportação**: Geração de arquivo processado e pronto para análise
-   - Saída: `arquivo_franca_agregado_e_ordenado.txt`
+5. **Export**: Generation of processed file ready for analysis
+   - Output: `france_aggregated_and_sorted.txt`
 
 ---
 
-## 📁 Estrutura de Arquivos
+## 📁 File Structure
 
 ```
 Data-Pipeline-for-wines/
-└── outputs/             # Configuração do Apache Hop
-    └── arquivo_saida_vinhos_IT.txt   # Dados brutos de vinhos italianos
-    └── arquivo_franca_agregado_e_ordenado.txt  #Dados franceses agregados por região e ordenados
-├── README.md                    # Documentação do projeto
-├── pipeline.png                 # Visualização da arquitetura
-├── vinhos_mundo.csv             # Fonte de dados
-└── pipeline_config/             # Configuração do Apache Hop
-    └── wine_data_pipeline.hpl   # Definição da pipeline
+└── outputs/             # Output files
+    └── wine_data_output_IT.txt   # Raw Italian wine data
+    └── france_aggregated_and_sorted.txt  # French data aggregated by region and sorted
+├── README.md                    # Project documentation
+├── pipeline.png                 # Pipeline architecture visualization
+├── wine_world.csv               # Data source
+└── pipeline_config/             # Apache Hop Configuration
+    └── wine_data_pipeline.hpl   # Pipeline definition
 ```
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
-- **Apache Hop**: Plataforma de orquestração de dados open-source
-- **CSV**: Formato de entrada de dados
-- **TXT**: Formato de saída processada
-
----
-
-## 💡 Funcionalidades Principais
-
-✔️ Ingestão automatizada de dados  
-✔️ Normalização de códigos de país  
-✔️ Filtragem inteligente de registros  
-✔️ Processamento segmentado por país  
-✔️ Agregação e análise de dados  
-✔️ Geração de relatórios formatados  
-✔️ Orquestração escalável e mantenível  
+- **Apache Hop**: Open-source data orchestration platform
+- **CSV**: Data input format
+- **TXT**: Processed output format
 
 ---
 
-## 📈 Casos de Uso
+## 💡 Key Features
 
-- **Análise Comparativa**: Comparar características de vinhos italianos e franceses
-- **Relatórios Agregados**: Gerar sumários de preços e avaliações por região
-- **Data Warehousing**: Alimentar sistemas de BI com dados processados
-- **Automação ETL**: Executar transformações repetitivas sem intervenção manual
-
----
-
-## 🔧 Como Executar
-
-1. Instalar Apache Hop (versão 2.0 ou superior)
-2. Clonar este repositório
-3. Importar a pipeline no Apache Hop
-4. Configurar a origem CSV com seus dados
-5. Executar a pipeline
+✔️ Automated data ingestion  
+✔️ Country code normalization  
+✔️ Intelligent record filtering  
+✔️ Country-specific processing  
+✔️ Data aggregation and analysis  
+✔️ Formatted report generation  
+✔️ Scalable and maintainable orchestration  
 
 ---
 
-## 📝 Saídas Esperadas
+## 📈 Use Cases
 
-| Arquivo | Descrição | Formato |
-|---------|-----------|---------|
-| `arquivo_saida_vinhos_IT.txt` | Dados brutos de vinhos italianos | TXT |
-| `arquivo_franca_agregado_e_ordenado.txt` | Dados franceses agregados por região e ordenados | TXT |
-
----
-
-## 👨‍💻 Autor
-
-Cristiano Jacinto da Gama 
-Projeto desenvolvido como exemplo de implementação de pipeline de dados com Apache Hop.
+- **Comparative Analysis**: Compare characteristics of Italian and French wines
+- **Aggregated Reports**: Generate summaries of prices and ratings by region
+- **Data Warehousing**: Feed BI systems with processed data
+- **ETL Automation**: Execute repetitive transformations without manual intervention
 
 ---
 
-## 📄 Licença
+## 🔧 How to Run
 
-Este projeto é licenciado sob a mesma licença do Apache Hop.
+1. Install Apache Hop (version 2.0 or higher)
+2. Clone this repository
+3. Import the pipeline into Apache Hop
+4. Configure the CSV source with your data
+5. Execute the pipeline
 
 ---
 
-## 🤝 Contribuições
+## 📝 Expected Outputs
 
-Contribuições são bem-vindas! Sinta-se livre para abrir issues ou pull requests.
+| File | Description | Format |
+|------|-------------|--------|
+| `wine_data_output_IT.txt` | Raw Italian wine data | TXT |
+| `france_aggregated_and_sorted.txt` | French data aggregated by region and sorted | TXT |
+
+---
+
+## 👨‍💻 Author
+
+Cristiano Jacinto da Gama  
+Project developed as an example of data pipeline implementation with Apache Hop.
+
+---
+
+## 📄 License
+
+This project is licensed under the same license as Apache Hop.
+
+---
+
+## 🤝 Contributions
+
+Contributions are welcome! Feel free to open issues or pull requests.
